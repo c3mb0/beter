@@ -47,7 +47,7 @@ func (i *inputs) login() (*http.Client, error) {
 	}
 	defer login.Body.Close()
 	if login.StatusCode != 200 {
-		return nil, b.E(&custError{"login not successful"}) // line 43
+		return nil, b.E(&custError{err: "login not successful"}) // line 43
 	}
 
 	return client, nil
