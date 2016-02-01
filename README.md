@@ -1,8 +1,8 @@
-## beter
+# beter
 
 Don't get lost going up the stack! Works with custom errors, and doesn't require too much modification around your existing code.
 
-# Example
+## Example
 
 ```Go
 package main
