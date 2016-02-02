@@ -1,6 +1,6 @@
 # beter
 
-Don't get lost going up the stack! Works with custom errors, and doesn't require too much modification around your existing code.
+Don't get lost going up the stack! Works with custom errors, and doesn't require too much modification around your existing code. Just wrap all returned errors with `b.E()` and assert the returned error to `*b.B` when you would like to access details about the stack that returned the first error.
 
 ## Example
 
