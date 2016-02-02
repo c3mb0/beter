@@ -1,8 +1,44 @@
 # beter
 
-Don't get lost going up the stack! Works with custom errors, and doesn't require too much modification around your existing code. Just wrap all returned errors with `b.E()` and assert the returned error to `*b.B` when you would like to access details about the stack that returned the first error.
+Don't get lost going up the stack! Works with custom errors, and doesn't require too much modification around your existing code. Just wrap all returned/passed errors with `b.E()` and assert the received error to `*b.B` when you would like to access details about the stack that returned the first error.
 
-## Example
+## Examples
+
+```Go
+package main
+
+import (
+	"fmt"
+	"os"
+
+	"github.com/c3mb0/beter"
+)
+
+func check(err error) {
+	if err != nil {
+		details := err.(*b.B)
+		fmt.Printf("%s\n%s:%d\n", details.Err, details.Fn, details.Line)
+		os.Exit(1)
+	}
+}
+
+func main() {
+	f, err := os.Open(`C:\sshd.log`)
+	check(b.E(err))
+	_, err = f.Seek(-1, 0)
+	check(b.E(err)) // line 22
+}
+```
+
+Output:
+
+```
+seek C:\sshd.log: An attempt was made to move the file pointer before the beginning of the file.
+main.main:22
+exit status 1
+```
+
+A more detailed and alternative use case can be as such:
 
 ```Go
 package main

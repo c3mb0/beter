@@ -2,20 +2,23 @@ package b
 
 import "runtime"
 
-// B is a detailed wrapper around an error.
+// B is the detailed wrapper around an error.
 type B struct {
-	Err  interface{}
+	Err  error
 	Fn   string
 	File string
 	Line int
 }
 
-func (b *B) Error() string {
-	return b.Err.(error).Error()
+func (e *B) Error() string {
+	return e.Err.Error()
 }
 
 // E either wraps the supplied error with a B or returns it as is if it's already of type B.
-func E(r interface{}) *B {
+func E(r error) error {
+	if r == nil {
+		return nil
+	}
 	switch t := r.(type) {
 	case *B:
 		return t
